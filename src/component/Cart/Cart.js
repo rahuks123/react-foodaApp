@@ -1,21 +1,21 @@
+import { useContext } from "react";
+import CartContext from "../../store/cart-context";
 import Modal from "../UI/Modal";
 import classes from "./Cart.module.css";
 const Cart = (props) => {
-  const cartitem = 
-    {
-      id: "m3",
-      name: "Barbecue Burger",
-      description: "American, raw, meaty",
-      price: 12.99,
-    }
+  const { items, totalAmount } = useContext(CartContext);
   return (
-    <Modal clickclose = {props.closefunc}>
-    <h3>
-      {cartitem.name}
-      </h3>
+    <Modal clickclose={props.closefunc}>
+      {items.map(({ name, price, amount }, index) => (
+        <div key={index}>
+          <h3>
+            {name} X {price} X {amount}
+          </h3>
+        </div>
+      ))}
       <div className={classes.total}>
         <span>TOTAL AMOUNT</span>
-        <span>34</span>
+        <span>{totalAmount}</span>
       </div>
       <div className={classes.actions}>
         <button onClick={props.closefunc}>CLOSE</button>
